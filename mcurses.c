@@ -20,6 +20,10 @@
 
 #ifdef __AVR__
 	#include <avr/pgmspace.h>
+#else
+	#define PROGMEM
+	#define PSTR(x)                                 (x)
+	#define pgm_read_byte(s)                        (*s)
 #endif 
 
 #include "mcurses.h"

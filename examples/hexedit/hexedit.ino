@@ -334,7 +334,7 @@ void setup()
 
 void loop()
 {
-    uint16_t    offset = 0x2000;    // change here
+    uint16_t    offset = 0x0100;    // change here
 
     hexedit (offset);
   
