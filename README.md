@@ -6,7 +6,7 @@ The original library you can find here
 
 http://www.mikrocontroller.net/articles/MCURSES
 
-![Alt text](/doc/demo_picture.jpg?raw=true "mcurses demo")
+![Alt text](doc/demo_picture.jpg?raw=true "mcurses demo")
 
 You need a VT100 compatible terminal program.
 
