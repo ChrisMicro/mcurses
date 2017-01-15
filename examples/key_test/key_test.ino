@@ -6,6 +6,7 @@
    Revision History:
    V1.0 2015 xx xx Frank Meyer, original version
    V1.1 2017 01 14 ChrisMicro, addapted as Arduino example
+   V1,2,2017 01 15 ChrisMicro, now showing escape characters sequentialy
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -24,7 +25,6 @@ void Arduino_putchar(uint8_t c)
 
 char Arduino_getchar()
 {
-  char c;
   while (!Serial.available());
   return Serial.read();
 }
@@ -33,10 +33,44 @@ void setup()
 {
   Serial.begin(115200);
 
+  Serial.println("key test demo");
+  delay(3000);
+  
   setFunction_putchar(Arduino_putchar); // tell the library which output channel shall be used
 
   initscr();                  // initialize mcurses
+  
 
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------------
+ * itox: convert a decimal value 0-15 into hexadecimal digit
+ *---------------------------------------------------------------------------------------------------------------------------------------------------
+ */
+void itox (uint8_t val)
+{
+    uint8_t ch;
+
+    val &= 0x0F;
+
+    if (val <= 9)
+    {
+        ch = val + '0';
+    }
+    else
+    {
+        ch = val - 10 + 'A';
+    }
+    addch (ch);
+}
+
+/*---------------------------------------------------------------------------------------------------------------------------------------------------
+ * itoxx: convert a decimal value 0-255 into 2 hexadecimal digits
+ *---------------------------------------------------------------------------------------------------------------------------------------------------
+ */
+void itoxx (unsigned char i)
+{
+    itox (i >> 4);
+    itox (i & 0x0F);
 }
 
 void loop()
@@ -46,15 +80,10 @@ void loop()
   static uint8_t cnt;
   uint8_t ch;
 
-  move (11, 10);
-  addstr_P (PSTR("Timeout Counter: "));
-  addstr (myitoa(cnt, buf));
-  addstr_P (PSTR(" tenths of a sec"));
-  clrtoeol ();
-
   move (10, 10);
-  addstr_P (PSTR("Press a key (2x ESC or 5 seconds timeout exits): "));
+  addstr_P (PSTR("Press a key : "));
 
+  delay(1000);
   ch = Arduino_getchar();
 
   switch (ch)
@@ -88,21 +117,22 @@ void loop()
     case ERR:           delay(100); cnt++;              break;
     default:            addch (ch);                     break;
   }
-
-  if (ch != ERR)
+  addstr_P (PSTR("                "));
+  clrtoeol ();
+  
+  move (12, 10);
+  addstr_P (PSTR("key value is "));
+  addstr (myitoa(ch, buf));
+  addstr_P (PSTR(" ( 0x"));
+  itoxx(ch);
+  addstr_P (PSTR(" )"));
+  clrtoeol ();
+  
+  if (ch == ERR)
   {
-    cnt = 0;
+    addstr_P (PSTR("ERROR"));
     clrtoeol ();
+  }
 
-    if (ch == KEY_ESCAPE)
-    {
-      delay(500);
-      //break;
-    }
-  }
-  else if (cnt >= 50 + 1)
-  {
-    //break;
-  }
 
 }
