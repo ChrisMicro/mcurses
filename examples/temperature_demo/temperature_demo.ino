@@ -96,6 +96,7 @@ void temperature ()
             addstr (buf);
             addch ('°');
             attrset (A_NORMAL);
+	    attrset (B_BLACK);
 
             move (idx + 4, 20);
 
