@@ -12,10 +12,9 @@ void setup()
   setFunction_putchar(Arduino_putchar); // tell the library which output channel shall be used
 
   initscr();                  // initialize mcurses
+
   move (11, 15);              // set cursor position
   addstr ("Hello, World");    // show text
-  delay(5000);
-  endwin ();                  // end mcurses
 }
 
 void loop()
