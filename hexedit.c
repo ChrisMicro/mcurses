@@ -6,7 +6,6 @@
  * Revision History:
  * V1.0 2015 xx xx Frank Meyer, original version
  * V1.1 2017 01 14 ChrisMicro, converted to Arduino example
- * V1.1 2017 01 15 ChrisMicro, key converter for termials escape sequences keyboards
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +24,14 @@
  */
 
 #include "mcurses.h"
+//Beginning of Auto generated function prototypes by Atmel Studio
+void itox(uint8_t val);
+void itoxx(unsigned char i);
+uint8_t xtoi(uint8_t ch);
+void print_hex_line(uint8_t line, uint16_t off);
+void hexedit(uint16_t offset);
+
+//End of Auto generated function prototypes by Atmel Studio
 
 #define FIRST_LINE      1
 #define LAST_LINE       (LINES - 1)
@@ -196,7 +203,7 @@ void hexedit (uint16_t offset)
     do
     {
         move (line, col);
-        ch = getKey ();
+        ch = getch ();
 
         switch (ch)
         {
@@ -276,7 +283,7 @@ void hexedit (uint16_t offset)
                         uint16_t    addr  = off + byte;
                         uint8_t     value = xtoi (ch) << 4;
 
-                        ch = getKey ();
+                        ch = getch ();
 
                         if (IS_HEX(ch))
                         {
@@ -311,91 +318,3 @@ void hexedit (uint16_t offset)
     } while (ch != KEY_ESCAPE);
 }
 
-void Arduino_putchar(uint8_t c)
-{
-  Serial.write(c);
-}
-
-char Arduino_getchar()
-{
-  char c;
-  while (!Serial.available());
-  return Serial.read();
-}
-
-/*
- * up:        ESC[A
- * down:      ESC[B
- * right:     ESC[C
- * left:      EXC[D
- * backspace: 8
- * delete:    127
- */
-char getConvertedEscapeKey()
-{
-  char c;
-  char result;
- 
-  c=Arduino_getchar();
-  result=c;
-  if(c==KEY_ESCAPE)
-  {
-    c=Arduino_getchar();
-    if(c=='[')
-    {
-      c=Arduino_getchar();    
-      switch(c)
-      {
-        case 'A':
-        {
-          result= KEY_UP;
-        }
-        break;
-        case 'B':
-        {
-          result= KEY_DOWN;
-        }
-        break;        
-        case 'C':
-        {
-          result= KEY_RIGHT;
-        }
-        break;    
-        case 'D':
-        {
-          result= KEY_LEFT;
-        }
-        break;    
-      }
-    }
-  }
-  
-  return result;
-
-}
-
-char getKey()
-{
-  
-  //return Arduino_getchar();
-  // use this function if your terminal keyboard outputs escape sequences
-  return getConvertedEscapeKey();
-}
-
-void setup()
-{
-  Serial.begin(115200);
-
-  setFunction_putchar(Arduino_putchar); // tell the library which output channel shall be used
-
-  initscr();                  // initialize mcurses
-
-}
-
-void loop()
-{
-    uint16_t    offset = 0x0100;    // change here
-
-    hexedit (offset);
-  
-}
