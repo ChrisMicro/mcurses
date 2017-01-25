@@ -87,3 +87,56 @@ void loop(void)
   }
 
 }
+
+/*
+QBASIC orginal code from:
+http://codegolf.stackexchange.com/questions/17285/make-the-matrix-digital-rain-using-the-shortest-amount-of-code
+
+DECLARE SUB d (p!, s!, x!, y!)
+DIM t(80)
+FOR i = 1 TO 80
+  t(i) = INT(-50 * RND)
+NEXT
+s = TIMER
+f = 0
+w$ = "bullet"
+o = 1
+ * o = 1
+CLS
+WHILE 1
+    FOR i = 1 TO 80
+        IF t(i) > 28 THEN t(i) = 0: IF f THEN SOUND 100 * i, 1
+        t(i) = t(i) + 1
+        y = t(i)
+        d 0, 0, i, y - 6
+        d 2 + x, 0, i, y - 5
+        d 2 + x, 0, i, y - 4
+        d 10 + x, 0, i, y - 3
+        d 10 + x, 0, i, y - 2
+        d 11 + x, 0, i, y - 1
+        d 0, 2 + x, i, y
+    NEXT
+    k$ = INKEY$
+    IF k$ <> "" THEN
+        IF MID$(w$, o, 1) = k$ THEN
+            o = o + 1
+            IF o = LEN(w$) + 1 THEN z = 1: f = 100
+        ELSE
+            o = 1
+        END IF
+
+    END IF
+    x = x + z
+    l = TIMER
+    WHILE l = TIMER
+    WEND
+
+WEND
+
+SUB d (p, s, x, y)
+COLOR p MOD 16, s MOD 16
+IF y > 0 AND y < 24 THEN LOCATE y, x: PRINT CHR$(33 + (x * y) MOD 200);
+END SUB
+*/
+ 
+ 
