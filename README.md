@@ -30,12 +30,29 @@ There may be several others but his two I have tested.
 
 ## Examples
 
+### Temperature Demo
 The "temperature_demo" displayes bar graphs of a simulated disk storage.
 
 <p align="center">
   <img src="screenshot.png" width="640"/>
 </p>
 
+### Hex Editor Demo 
+Here is the "hexeditor_demo". 
 
+<p align="center">
+  <img src="/doc/hexedit.png" width="640"/>
+</p>
 
+In this picture it is running on an ARDUINO UNO but you can easily include it on any microcontroller as follows:
+```
+#include "hexedit.h"
+
+...
+static uint16_t    memmoryStartAddress = 0x100;    // ATMEGA RAM start
+
+hexedit (memmoryStartAddress);
+...
+```
+For detailed information see the "hexeditor_demo".
 
