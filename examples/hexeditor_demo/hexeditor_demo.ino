@@ -8,6 +8,9 @@
    Why:
     This may be useful for debugging purposes
 
+   Hint: 
+    to exit the editor, press two times ESC
+
    Revision History:
    V1.0 2017 01 18 ChrisMicro, initial version
 
@@ -27,7 +30,6 @@ void Arduino_putchar(uint8_t c)
 
 char Arduino_getchar()
 {
-  // char c;
   while (!Serial.available());
   return Serial.read();
 }
