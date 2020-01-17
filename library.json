@@ -1,0 +1,24 @@
+{
+  "name": "mcurses",
+  "keywords": "ncurses terminal",
+  "description": "mcurses is a minimized version of programming library ncurses which gives GUI like interfaces on text terminal.",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/ChrisMicro/mcurses"
+  },
+  "authors":
+  [
+    {
+      "name": "Frank M.",
+      "maintainer": false
+    }
+    {
+      "name": "ChrisMicro",
+      "maintainer": true
+    }
+  ],
+  "version": "0.1",
+  "frameworks": ["arduino"],
+  "platforms": "*"
+}
