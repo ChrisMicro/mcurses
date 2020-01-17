@@ -37,7 +37,9 @@ minicom -c on -b 115200 -D /dev/ttyACM0
 The parameters have the following meaning
 
 -c on : turn colors on
+
 -b 115200: set baud rate to 115200
+
 -D /dev/ttyACM0: the port to which the Arduino is connected
 
 Hint: minicom can not display all graphics correctly because it supports only VT102 or ANSI and not VT220. Therefore it seems to have some problems with the colors. To solve this, change the terminal type manually  to ‘ansi’. Also it seems to have some issues with the graphical symbols for lines and corners.
