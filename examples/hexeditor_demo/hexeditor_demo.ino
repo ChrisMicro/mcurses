@@ -27,7 +27,7 @@ void Arduino_putchar(uint8_t c)
 
 char Arduino_getchar()
 {
-  char c;
+  // char c;
   while (!Serial.available());
   return Serial.read();
 }
