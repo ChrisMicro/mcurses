@@ -273,7 +273,7 @@ void hexedit (uint16_t offset)
                     mode = MODE_HEX;
                     col = FIRST_HEX_COL + 3 * byte;
                 }
-            }
+            }    /* fall through */
             default:
             {
                 if (mode == MODE_HEX)
