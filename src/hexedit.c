@@ -6,6 +6,7 @@
  * Revision History:
  * V1.0 2015 xx xx Frank Meyer, original version
  * V1.1 2017 01 14 ChrisMicro, converted to Arduino example
+ * V1.2 2019 01 22 ChrisMicro, memory access functions can now be set
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -47,6 +48,7 @@ void hexedit(uint16_t offset);
 
 #define IS_HEX(ch)      (((ch) >= 'A' && (ch) <= 'F') || ((ch) >= 'a' && (ch) <= 'f') || ((ch) >= '0' && (ch) <= '9'))
 
+/*
 #ifdef unix
 #define PEEK(x)         memory[x]
 #define POKE(x,v)       memory[x] = (v)
@@ -55,6 +57,34 @@ unsigned char           memory[65536];
 #define PEEK(x)         *((unsigned char *) (x))
 #define POKE(x,v)       *((unsigned char *) (x)) = (v)
 #endif
+*/
+// default functions are RAM access functons by pointers
+uint8_t peekMemory(uint16_t address)
+{
+  uint8_t *p;
+  return p[address];
+}
+void    pokeMemory(uint16_t address, uint8_t value)
+{
+  uint8_t *p;
+  p[address]=value;
+}
+
+uint8_t (*FunctionPointer_readMemory)(uint16_t address)=peekMemory; // set default function
+void  (*FunctionPointer_writeMemory)(uint16_t address, uint8_t value)=pokeMemory; // set default function
+
+#define PEEK(x) FunctionPointer_readMemory(x)
+#define POKE(x,v) FunctionPointer_writeMemory(x,v)
+
+void setFunction_readMemory(uint8_t (*functionPointer)(uint16_t address))
+{
+  FunctionPointer_readMemory = functionPointer;
+}
+
+void setFunction_writeMemory(void (*functionPointer)(uint8_t ch))
+{
+  FunctionPointer_writeMemory = functionPointer;
+}
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
  * itox: convert a decimal value 0-15 into hexadecimal digit

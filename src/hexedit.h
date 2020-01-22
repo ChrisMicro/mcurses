@@ -1,24 +1,26 @@
 /*
- * hexedit.h
- *
- * Created: 18.01.2017 08:24:04
- *  Author: ChrisMicro
- */ 
+   hexedit.h
+
+   Created: 18.01.2017 08:24:04
+    Author: ChrisMicro
+*/
 
 #ifdef __cplusplus
 extern "C"
 {
-	#endif
+#endif
 
-	#ifndef HEXEDIT_H_
-	#define HEXEDIT_H_
+#ifndef HEXEDIT_H_
+#define HEXEDIT_H_
 
-	#include "mcurses.h"
-	
-	void hexedit (uint16_t offset);
+#include "mcurses.h"
 
-	#endif /* HEXEDIT_H_ */
+void hexedit (uint16_t offset);
+void setFunction_readMemory(uint8_t (*functionPointer)(uint16_t address));
+void setFunction_writeMemory(void (*functionPointer)(uint8_t ch));
 
-	#ifdef __cplusplus
+#endif /* HEXEDIT_H_ */
+
+#ifdef __cplusplus
 }
 #endif
