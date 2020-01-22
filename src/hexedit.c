@@ -81,7 +81,7 @@ void setFunction_readMemory(uint8_t (*functionPointer)(uint16_t address))
   FunctionPointer_readMemory = functionPointer;
 }
 
-void setFunction_writeMemory(void (*functionPointer)(uint8_t ch))
+void setFunction_writeMemory(void (*functionPointer)(uint16_t address, uint8_t value))
 {
   FunctionPointer_writeMemory = functionPointer;
 }
