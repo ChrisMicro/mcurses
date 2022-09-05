@@ -228,7 +228,13 @@ mcurses_addch_or_insch (uint_fast8_t ch, uint_fast8_t insert)
     }
 
     mcurses_putc (ch);
-    mcurses_curx++;
+    if( ch == KEY_CR ){
+        mcurses_cury++;
+        mcurses_curx = 0;
+    }
+    else{
+        mcurses_curx++;
+    }
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
