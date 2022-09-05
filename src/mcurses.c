@@ -76,7 +76,10 @@ void setFunction_putchar(void (*functionPoitner)(uint8_t ch))
 
 static uint_fast8_t mcurses_phyio_init (void)
 {
-  return 0;
+    if(FunctionPointer_putchar!=0)
+        return OK;
+    else
+        return ERR;
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -275,7 +278,7 @@ initscr (void)
 {
     uint_fast8_t rtc;
 
-    if (mcurses_phyio_init ())
+    if (OK == mcurses_phyio_init ())
     {
         mcurses_puts_P (SEQ_LOAD_G1);                                               // load graphic charset into G1
         attrset (A_NORMAL);
